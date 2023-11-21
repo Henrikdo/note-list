@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:google_fonts/google_fonts.dart";
-import 'package:url_launcher/url_launcher.dart';
+import 'package:teladelogin/views/preferencias/user_preferences_screen.dart';
+import 'package:url_launcher/link.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -15,21 +16,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: _wrapper(),
-    ));
-  }
-
-  Widget _wrapper() {
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
         Color.fromRGBO(30, 78, 98, 1),
         Color.fromRGBO(45, 149, 142, 1)
       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-      child: _form(context),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Center(
+            child: _wrapper(),
+          )),
     );
+  }
+
+  Widget _wrapper() {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [_form(context)]);
   }
 
   Widget _form(context) {
@@ -108,7 +112,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if (_formKey.currentState!.validate())
           {
             ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Processing data')))
+                .showSnackBar(const SnackBar(content: Text('Processing data'))),
+            Navigator.of(context).push(
+              _createRoute(
+                UserPreferences(),
+              ),
+            )
           }
       },
       style: FilledButton.styleFrom(
@@ -178,24 +187,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(Uri.parse('https://www.google.com.br'))) {
-      throw Exception('Could not launch');
-    }
-  }
-
   Widget _bottomText() {
     return Padding(
-      padding: EdgeInsets.all(8),
-      child: InkWell(
-          child: Text('Politica de privacidade'),
-          onTap: () async {
-            final url = Uri.parse('https://www.google.com.br');
-            if(await canLaunchUrl(url)){
-              launchUrl(url);
-            }
-          },
-    ));
+        padding: EdgeInsets.only(top: 80),
+        child: Link(
+            uri: Uri.parse('https://www.google.com.br'),
+            target: LinkTarget.defaultTarget,
+            builder: (context, openLink) => InkWell(
+                onTap: openLink,
+                child: Text('Política de Privacidade',
+                    style: _textStyle(Color.fromRGBO(206, 229, 227, 1), 14,
+                        FontWeight.w200)))));
   }
 
   TextStyle _textStyle(
@@ -228,6 +230,25 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'Preencha o campo acima com seu usuário.';
     }
     return null;
+  }
+
+  Route _createRoute(screen) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => screen,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 }
 
