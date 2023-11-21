@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:google_fonts/google_fonts.dart";
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -47,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 30,
         ),
         _button(),
+        _bottomText()
       ]),
     );
   }
@@ -100,15 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _fieldText(String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(text,
-          style: _textStyle(
-              const Color.fromRGBO(206, 229, 227, 1), 14, FontWeight.w300)),
-    );
-  }
-
   Widget _button() {
     return FilledButton(
       onPressed: () => {
@@ -128,14 +121,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 MediaQuery.of(context).size.width * 0.04, FontWeight.w600)),
       ),
     );
-  }
-
-  TextStyle _textStyle(
-    Color color,
-    double fontSize,
-    FontWeight fw,
-  ) {
-    return GoogleFonts.ptSans(fontSize: fontSize, color: color, fontWeight: fw);
   }
 
   Widget _field(Icon icon, bool obscureText,
@@ -165,10 +150,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red, width: 0.0),
                 ),
-                focusedErrorBorder:const OutlineInputBorder(
-                    borderSide:BorderSide.none),
+                focusedErrorBorder:
+                    const OutlineInputBorder(borderSide: BorderSide.none),
                 focusedBorder:
                     const OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.transparent, width: 0.0)),
                 counterText: "",
                 focusColor: Colors.red,
                 contentPadding: EdgeInsets.all(10),
@@ -179,6 +167,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 isDense: true,
                 prefixIcon: icon)));
+  }
+
+  Widget _fieldText(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Text(text,
+          style: _textStyle(
+              const Color.fromRGBO(206, 229, 227, 1), 14, FontWeight.w300)),
+    );
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(Uri.parse('https://www.google.com.br'))) {
+      throw Exception('Could not launch');
+    }
+  }
+
+  Widget _bottomText() {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: InkWell(
+          child: Text('Politica de privacidade'),
+          onTap: () async {
+            final url = Uri.parse('https://www.google.com.br');
+            if(await canLaunchUrl(url)){
+              launchUrl(url);
+            }
+          },
+    ));
+  }
+
+  TextStyle _textStyle(
+    Color color,
+    double fontSize,
+    FontWeight fw,
+  ) {
+    return GoogleFonts.ptSans(fontSize: fontSize, color: color, fontWeight: fw);
   }
 
   String? _passwordValidator(String value) {
