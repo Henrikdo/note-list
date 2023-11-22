@@ -13,9 +13,11 @@ class CustomTextField extends StatelessWidget {
     this.labelText,
     this.hintText,
     this.onChanged,
-    this.onEditingComplete
+    this.onEditingComplete,
+    this.onFieldSubmitted,
+    this.focusNode,
   });
-  
+
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
   final bool obscureText;
@@ -24,8 +26,9 @@ class CustomTextField extends StatelessWidget {
   final String? labelText;
   final String? hintText;
   final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
   final Function()? onEditingComplete;
-
+  final FocusNode? focusNode;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,7 +37,10 @@ class CustomTextField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(headerText ?? '',
-              style: GoogleFonts.ptSans(fontSize: 14, color: const Color.fromRGBO(206, 229, 227, 1), fontWeight: FontWeight.w200)),
+              style: GoogleFonts.ptSans(
+                  fontSize: 14,
+                  color: const Color.fromRGBO(206, 229, 227, 1),
+                  fontWeight: FontWeight.w200)),
         ),
         const SizedBox(
           height: 5,
@@ -45,7 +51,9 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           color: Colors.transparent,
           child: TextFormField(
+            focusNode: focusNode,
             onChanged: onChanged,
+            onFieldSubmitted: onFieldSubmitted,
             onEditingComplete: onEditingComplete,
             cursorColor: Color.fromRGBO(33, 40, 55, 1),
             maxLength: 20,
@@ -54,30 +62,28 @@ class CustomTextField extends StatelessWidget {
             validator: validator,
             obscureText: obscureText,
             decoration: InputDecoration(
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.red, width: 0.0),
-              ),
-              focusedErrorBorder:
-                  const OutlineInputBorder(borderSide: BorderSide.none),
-              focusedBorder:
-                  const OutlineInputBorder(borderSide: BorderSide.none),
-              enabledBorder: const OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.transparent, width: 0.0)),
-              counterText: "",
-              focusColor: Colors.red,
-              contentPadding: EdgeInsets.all(10),
-              filled: true,
-              fillColor: Colors.white,
-              errorStyle: TextStyle(
-                height: MediaQuery.of(context).size.width * 0.001,
-              ),
-              isDense: true,
-              prefixIcon: prefixIcon,
-              labelText: labelText,
-              hintText: hintText
-              
-            ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 0.0),
+                ),
+                focusedErrorBorder:
+                    const OutlineInputBorder(borderSide: BorderSide.none),
+                focusedBorder:
+                    const OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.transparent, width: 0.0)),
+                counterText: "",
+                focusColor: Colors.red,
+                contentPadding: EdgeInsets.all(10),
+                filled: true,
+                fillColor: Colors.white,
+                errorStyle: TextStyle(
+                  height: MediaQuery.of(context).size.width * 0.001,
+                ),
+                isDense: true,
+                prefixIcon: prefixIcon,
+                labelText: labelText,
+                hintText: hintText),
           ),
         ),
       ],

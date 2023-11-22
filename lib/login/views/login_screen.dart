@@ -3,9 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:teladelogin/core/components/export_components.dart';
-import 'package:teladelogin/core/components/custom_field.dart';
 import 'package:teladelogin/notes/views/user_preferences_screen.dart';
-import 'package:url_launcher/link.dart';
+
 
 class LoginScreen extends StatelessWidget {
    LoginScreen({super.key});
@@ -69,6 +68,7 @@ class LoginScreen extends StatelessWidget {
             }
             return null;
           }
+          return null;
         },
         headerText: 'Usuário',
       ),
@@ -104,6 +104,7 @@ class LoginScreen extends StatelessWidget {
             }
             return null;
           }
+          return null;
         },
         headerText: 'Senha',
       ),
@@ -118,7 +119,7 @@ class LoginScreen extends StatelessWidget {
             
             Navigator.of(context).push(
               _createRoute(
-                const UserPreferences(),
+               UserPreferences(),
               ),
             ),
           },
