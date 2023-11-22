@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "540137121478",
+    "project_id": "teladelogin-auth-dev",
+    "storage_bucket": "teladelogin-auth-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540137121478:android:92cc3f1e6609253cbb59c7",
+        "android_client_info": {
+          "package_name": "com.example.teladelogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtuerB78-1qsQSadnbmxAEA6tZpPamuR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

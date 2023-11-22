@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.focusNode,
+    this.controller
   });
 
   final String? Function(String?)? validator;
@@ -29,6 +30,8 @@ class CustomTextField extends StatelessWidget {
   final Function(String)? onFieldSubmitted;
   final Function()? onEditingComplete;
   final FocusNode? focusNode;
+  final TextEditingController? controller;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,6 +54,7 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           color: Colors.transparent,
           child: TextFormField(
+            controller: controller,
             focusNode: focusNode,
             onChanged: onChanged,
             onFieldSubmitted: onFieldSubmitted,
