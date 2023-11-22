@@ -3,21 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    this.validator,
-    this.inputFormatters,
-    this.obscureText = false,
-    this.prefixIcon,
-    this.headerText,
-    this.labelText,
-    this.hintText,
-    this.onChanged,
-    this.onEditingComplete,
-    this.onFieldSubmitted,
-    this.focusNode,
-    this.controller
-  });
+  const CustomTextField(
+      {super.key,
+      this.validator,
+      this.inputFormatters,
+      this.obscureText = false,
+      this.prefixIcon,
+      this.headerText,
+      this.labelText,
+      this.hintText,
+      this.onChanged,
+      this.onEditingComplete,
+      this.onFieldSubmitted,
+      this.focusNode,
+      this.controller});
 
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;

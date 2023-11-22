@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:teladelogin/core/components/export_components.dart';
-import 'package:teladelogin/notes/views/user_preferences_screen.dart';
+import 'package:teladelogin/notes/views/note_screen.dart';
 import 'package:teladelogin/login/controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -130,7 +130,7 @@ class LoginScreen extends StatelessWidget {
               null) {
             Navigator.of(context).push(
               _createRoute(
-                UserPreferences(),
+                NoteScreen(),
               ),
             );
           } else {
@@ -138,10 +138,17 @@ class LoginScreen extends StatelessWidget {
               context: context,
               builder: (context) {
                 return const AlertDialog(
-                  icon: Icon(FontAwesomeIcons.squareXmark,color: Colors.red,),
-                  title:  Padding(
-                    padding: EdgeInsets.symmetric(vertical:10.0),
-                    child: Text('Usuário ou senha incorretos.',style:TextStyle(fontSize: 14, color: Colors.red),textAlign: TextAlign.center,),
+                  icon: Icon(
+                    FontAwesomeIcons.squareXmark,
+                    color: Colors.red,
+                  ),
+                  title: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      'Usuário ou senha incorretos.',
+                      style: TextStyle(fontSize: 14, color: Colors.red),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 );
               },
