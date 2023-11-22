@@ -3,8 +3,9 @@ import 'package:teladelogin/core/components/export_components.dart';
 import 'package:teladelogin/notes/controller/note_controller.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:teladelogin/notes/components/expor_components.dart';
-class UserPreferences extends StatelessWidget {
-  UserPreferences({super.key});
+
+class NoteScreen extends StatelessWidget {
+  NoteScreen({super.key});
   final NoteController _noteController = NoteController();
 
   final FocusNode _focusNode = FocusNode();
@@ -33,11 +34,9 @@ class UserPreferences extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              
               height: MediaQuery.of(context).size.height * 0.38,
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
-                
                 borderRadius: BorderRadius.circular(10),
               ),
               child: _noteList(),
@@ -81,15 +80,18 @@ class UserPreferences extends StatelessWidget {
       //Carrega os dados.
       _noteController.loadStrings();
       return ListView.builder(
-        padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.05),
         shrinkWrap: true,
         physics: const AlwaysScrollableScrollPhysics(),
         itemCount: _noteController.strings.length,
         itemBuilder: (context, index) {
-          return Note(noteController: _noteController,index: index,);
+          return Note(
+            noteController: _noteController,
+            index: index,
+          );
         },
       );
     });
   }
-
 }
