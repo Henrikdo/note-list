@@ -4,11 +4,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:teladelogin/core/components/export_components.dart';
 import 'package:teladelogin/notes/views/user_preferences_screen.dart';
-
+import 'package:teladelogin/login/controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  LoginScreen({super.key});
 
+  final TextEditingController _userController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final _loginController = LoginController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,7 +29,9 @@ class LoginScreen extends StatelessWidget {
 
   Widget _body(context) {
     return Padding(
-      padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25,),
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.25,
+      ),
       child: Form(
         key: _formKey,
         child: Column(
@@ -71,6 +77,8 @@ class LoginScreen extends StatelessWidget {
           return null;
         },
         headerText: 'Usuário',
+        controller: _userController,
+        hintText: 'testuser@gmail.com',
       ),
     );
   }
@@ -107,22 +115,39 @@ class LoginScreen extends StatelessWidget {
           return null;
         },
         headerText: 'Senha',
+        controller: _passwordController,
+        hintText: '123456',
       ),
     );
   }
 
   Widget _primaryButton(context) {
     return FilledButton(
-      onPressed: () => {
-        if (_formKey.currentState!.validate())
-          {
-            
+      onPressed: () async {
+        if (_formKey.currentState!.validate()) {
+          if (await _loginController.login(
+                  _userController, _passwordController) !=
+              null) {
             Navigator.of(context).push(
               _createRoute(
-               UserPreferences(),
+                UserPreferences(),
               ),
-            ),
-          },
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  icon: Icon(FontAwesomeIcons.squareXmark,color: Colors.red,),
+                  title:  Padding(
+                    padding: EdgeInsets.symmetric(vertical:10.0),
+                    child: Text('Usuário ou senha incorretos.',style:TextStyle(fontSize: 14, color: Colors.red),textAlign: TextAlign.center,),
+                  ),
+                );
+              },
+            );
+          }
+        }
       },
       style: FilledButton.styleFrom(
           backgroundColor: const Color.fromRGBO(90, 190, 125, 1)),
