@@ -68,7 +68,6 @@ class Note extends StatelessWidget {
                             ));
                       },
                     );
-                    noteController.removeString(noteController.strings[index]);
                   },
                   icon: const Icon(
                     FontAwesomeIcons.solidCircleXmark,
