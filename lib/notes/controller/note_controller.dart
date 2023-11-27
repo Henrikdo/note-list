@@ -7,7 +7,8 @@ class NoteController = _NoteController with _$NoteController;
 abstract class _NoteController with Store {
   static const String _keyPrefix = 'notes';
   static const String _allKeysKey = 'allStringKeys';
-  
+    
+
   @observable
   ObservableList<String> strings = ObservableList<String>();
 
@@ -52,7 +53,6 @@ abstract class _NoteController with Store {
       await prefs.remove(keyToRemove);
       allKeys.remove(keyToRemove);
       await prefs.setStringList(_allKeysKey, allKeys);
-
       loadStrings(); // Atualiza a lista após remover uma string
     }
   }
