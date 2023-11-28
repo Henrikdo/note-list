@@ -49,6 +49,14 @@ mixin _$NoteController on _NoteController, Store {
     return _$removeStringAsyncAction.run(() => super.removeString(value));
   }
 
+  late final _$editStringAsyncAction =
+      AsyncAction('_NoteController.editString', context: context);
+
+  @override
+  Future<void> editString(int index, String newValue) {
+    return _$editStringAsyncAction.run(() => super.editString(index, newValue));
+  }
+
   @override
   String toString() {
     return '''

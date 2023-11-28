@@ -7,6 +7,8 @@ import 'package:teladelogin/notes/components/expor_components.dart';
 class NoteScreen extends StatelessWidget {
   NoteScreen({super.key});
   final NoteController _noteController = NoteController();
+  final TextEditingController _controller = TextEditingController();
+
 
   final FocusNode _focusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
@@ -60,9 +62,11 @@ class NoteScreen extends StatelessWidget {
                 onFieldSubmitted: (value) {
                   if (_formKey.currentState!.validate()) {
                     _noteController.saveString(value);
+                    _controller.clear();
                   }
                 },
                 focusNode: _focusNode,
+                controller: _controller,
               ),
             ),
             const Padding(
