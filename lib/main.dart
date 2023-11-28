@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teladelogin/core/views/home_screen.dart';
 import 'package:teladelogin/login/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  LoginScreen(),
+      home:  HomeScreen(),
     );
   }
 }
